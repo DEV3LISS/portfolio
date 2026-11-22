@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ПРОТЕКТОР — шиномонтаж в [город]</title>
+<meta name="description" content="Шиномонтаж легковых и кроссоверов R13–R22. Вся машина за 25 минут, запись на точное время, 8:00–22:00 без выходных.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+
+<!-- Прелоадер: честный процент по загруженным файлам, не дольше 4 с -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__brand">ПРОТЕКТОР</div>
+  <div class="preloader__count"><span id="preCount">0</span><i>%</i></div>
+</div>
+
+<!-- Мокрый асфальт под первым экраном -->
+<div class="hero-bg" aria-hidden="true"><img src="assets/img/hero-wet.jpg" alt="" id="heroBg"></div>
+
+<!-- Фон, который меняет тему по скроллу (анимируется только opacity) -->
+<div class="bg-layer bg-layer--light" id="bgLight" aria-hidden="true"></div>
+
+<!-- Объёмная шина (three.js), живёт на первом и втором экране -->
+<div class="stage" id="stage" aria-hidden="true">
+  <canvas id="tireCanvas"></canvas>
+  <img class="stage__fallback" id="tireFallback" src="assets/img/tire-cut.png" alt="">
+</div>
+
+<header class="header" id="header">
+  <a class="header__logo" href="#top" aria-label="ПРОТЕКТОР, наверх">ПРОТЕКТОР</a>
+  <div class="header__meta">
+    <span>[город], [адрес]</span>
+    <span class="slash">/</span>
+    <span>8:00–22:00 без выходных</span>
+  </div>
+  <nav class="header__nav" aria-label="Разделы">
+    <a href="#speed">Как быстро</a>
+    <a href="#services">Услуги</a>
+    <a href="#works">Работы</a>
+    <a href="#warranty">Гарантия</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+  <a class="header__phone" href="tel:+70000000000">+7 [телефон]</a>
+  <a class="btn btn--red btn--sm" href="#book">Записаться</a>
+</header>
+
+<main id="top">
+
+  <!-- 1. Первый экран: шина в центре, интерфейс по углам -->
+  <section class="hero" data-theme="dark" id="hero">
+    <div class="hero__corner hero__corner--tl" data-reveal>
+      <p class="label">Шиномонтаж <span class="slash">/</span> [город]</p>
+      <p class="hero__note">Легковые и кроссоверы, R13–R22.<br>Две линии, запись на&nbsp;точное время.</p>
+    </div>
+
+    <div class="hero__corner hero__corner--tr" data-reveal>
+      <div class="avatars">
+        <img src="assets/img/av1.jpg" alt=""><img src="assets/img/av2.jpg" alt=""><img src="assets/img/av3.jpg" alt=""><img src="assets/img/av4.jpg" alt="">
+      </div>
+      <p class="hero__rating"><b>[рейтинг]</b> <span class="slash">/</span> отзывы на&nbsp;Картах</p>
+    </div>
+
+    <div class="hero__bottom">
+      <h1 class="display hero__title" data-reveal>
+        <span class="line">Переобуем</span>
+        <span class="line">за&nbsp;25 минут</span>
+      </h1>
+      <div class="hero__aside" data-reveal>
+        <div class="badge12">
+          <span class="badge12__num">12</span>
+          <span class="badge12__txt">мес<br>гарантии</span>
+        </div>
+        <p class="hero__aside-txt">на ремонт прокола. Азот вместо воздуха&nbsp;— бесплатно.</p>
+        <div class="btn-pair">
+          <a class="btn btn--red" href="#book">Записаться</a>
+          <a class="btn btn--ghost" href="tel:+70000000000">Позвонить</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="hero__scroll" data-reveal>Листайте&nbsp;— шина повернётся</p>
+  </section>
+
+  <!-- 2. 25 минут: светлая тема, шина справа поворачивается протектором -->
+  <section class="speed" data-theme="light" id="speed">
+    <div class="speed__pin">
+      <div class="speed__left">
+        <p class="label">Как это быстро</p>
+        <h2 class="display speed__title" data-reveal>
+          <span class="line">25 минут</span>
+          <span class="line">на всё</span>
+        </h2>
+        <div class="speed__clock" aria-hidden="true">
+          <span class="speed__clock-num" id="clockNum">00</span>
+          <span class="speed__clock-unit">мин<br>из 25</span>
+        </div>
+        <ol class="steps" id="steps">
+          <li class="is-active"><b>Встречаем в&nbsp;своё время</b><span>Запись на точную минуту, а&nbsp;не&nbsp;«подъезжайте с&nbsp;утра». Две линии: пока на&nbsp;одной заканчивают, вторая уже ждёт вас.</span></li>
+          <li><b>Снимаем и&nbsp;монтируем</b><span>Переобуваем и&nbsp;смотрим на&nbsp;шину с&nbsp;диском. Если что-то не&nbsp;так, скажем до&nbsp;работы, а&nbsp;не&nbsp;в&nbsp;чеке.</span></li>
+          <li><b>Балансируем</b><span>На станке. Руль всё равно дрожит на&nbsp;трассе&nbsp;— делаем финишную, прямо на&nbsp;машине.</span></li>
+          <li><b>Качаем азотом</b><span>Бесплатно и&nbsp;без вопроса «а&nbsp;вам надо?».</span></li>
+          <li><b>Протягиваем, отдаём ключи</b><span>Колёса затянуты, машина у&nbsp;ворот. Кофе можно допить.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Услуги: липкий заголовок, ховер показывает фото -->
+  <section class="services" data-theme="dark" id="services">
+    <div class="services__head">
+      <p class="label">Услуги</p>
+      <h2 class="display services__title" data-reveal>
+        <span class="line">Всё,</span>
+        <span class="line">что круглое</span>
+      </h2>
+      <p class="services__lead" data-reveal>Шесть работ, которые мы делаем каждый день. Цены скажем по&nbsp;телефону, честно и&nbsp;до&nbsp;записи.</p>
+    </div>
+    <ul class="srv" id="srv">
+      <li class="srv__row" data-img="assets/img/g-bead.jpg" data-reveal>
+        <span class="srv__n">01</span>
+        <h3 class="srv__name">Шиномонтаж</h3>
+        <p class="srv__txt">Легковые и&nbsp;кроссоверы, от&nbsp;R13 до&nbsp;R22. Сезонная переобувка и&nbsp;одно пробитое колесо&nbsp;— одинаково всерьёз.</p>
+      </li>
+      <li class="srv__row" data-img="assets/img/g-balance.jpg" data-reveal>
+        <span class="srv__n">02</span>
+        <h3 class="srv__name">Балансировка</h3>
+        <p class="srv__txt">На станке и&nbsp;финишная на&nbsp;автомобиле, когда руль дрожит даже после станка.</p>
+      </li>
+      <li class="srv__row" data-img="assets/img/g-plug.jpg" data-reveal>
+        <span class="srv__n">03</span>
+        <h3 class="srv__name">Проколы и&nbsp;порезы</h3>
+        <p class="srv__txt">Латаем проколы и&nbsp;боковые порезы. На&nbsp;ремонт прокола&nbsp;— 12&nbsp;месяцев гарантии.</p>
+      </li>
+      <li class="srv__row" data-img="assets/img/g-storage.jpg" data-reveal>
+        <span class="srv__n">04</span>
+        <h3 class="srv__name">Хранение</h3>
+        <p class="srv__txt">Летний комплект зимует у&nbsp;нас, а&nbsp;не&nbsp;на&nbsp;вашем балконе. Весной приедете&nbsp;— поставим.</p>
+      </li>
+      <li class="srv__row" data-img="assets/img/g-rim.jpg" data-reveal>
+        <span class="srv__n">05</span>
+        <h3 class="srv__name">Правка дисков</h3>
+        <p class="srv__txt">Литой диск поймал яму? Выправим, чтобы колесо снова стояло ровно и&nbsp;не&nbsp;травило.</p>
+      </li>
+      <li class="srv__row" data-img="assets/img/g-mobile.jpg" data-reveal>
+        <span class="srv__n">06</span>
+        <h3 class="srv__name">Выезд к&nbsp;вам</h3>
+        <p class="srv__txt">Колесо село во&nbsp;дворе, а&nbsp;ехать на&nbsp;нём жалко. Приедем сами.</p>
+      </li>
+    </ul>
+    <div class="srv-reveal" id="srvReveal" aria-hidden="true"></div>
+  </section>
+
+  <!-- 4. Галерея: горизонтальный скролл -->
+  <section class="works" data-theme="dark" id="works">
+    <div class="works__pin">
+      <div class="works__head">
+        <h2 class="display works__title" data-reveal>
+          <span class="line">Гараж</span>
+          <span class="line">как есть</span>
+        </h2>
+        <p class="works__lead" data-reveal>Без студийного света. Так выглядит обычный день на&nbsp;двух линиях.</p>
+      </div>
+      <p class="works__count"><span id="worksNow">01</span> <span class="slash">/</span> <span id="worksAll">08</span></p>
+      <div class="works__track" id="worksTrack">
+        <figure class="card card--tall"><div class="card__img"><img src="assets/img/g-bays.jpg" alt="Две линии шиномонтажа вечером, машины на подъёмниках"></div><figcaption>Две линии <span class="slash">/</span> вечер пятницы</figcaption></figure>
+        <figure class="card"><div class="card__img"><img src="assets/img/g-bead.jpg" alt="Мастер снимает шину с литого диска на станке"></div><figcaption>Монтаж <span class="slash">/</span> литой диск</figcaption></figure>
+        <figure class="card card--wide"><div class="card__img"><img src="assets/img/g-plug.jpg" alt="Ремонт прокола в протекторе"></div><figcaption>Прокол <span class="slash">/</span> 12 месяцев гарантии</figcaption></figure>
+        <figure class="card"><div class="card__img"><img src="assets/img/g-balance.jpg" alt="Колесо крутится на балансировочном станке"></div><figcaption>Балансировка <span class="slash">/</span> грузики</figcaption></figure>
+        <figure class="card card--wide"><div class="card__img"><img src="assets/img/g-rim.jpg" alt="Литой диск на станке для правки"></div><figcaption>Правка <span class="slash">/</span> диск после ямы</figcaption></figure>
+        <figure class="card"><div class="card__img"><img src="assets/img/g-storage.jpg" alt="Стеллажи с шинами на хранении"></div><figcaption>Хранение <span class="slash">/</span> до&nbsp;весны</figcaption></figure>
+        <figure class="card card--wide"><div class="card__img"><img src="assets/img/g-mobile.jpg" alt="Выездной шиномонтаж ночью у двора"></div><figcaption>Выезд <span class="slash">/</span> двор, дождь</figcaption></figure>
+        <figure class="card"><div class="card__img"><img src="assets/img/g-lounge.jpg" alt="Комната ожидания с кофе и окном в цех"></div><figcaption>Ожидание <span class="slash">/</span> кофе</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Гарантия, факты и запись -->
+  <section class="warranty" data-theme="light" id="warranty">
+    <div class="warranty__grid">
+      <div class="warranty__left">
+        <p class="label">Почему не страшно</p>
+        <h2 class="display warranty__title" data-reveal>
+          <span class="line">Гарантия</span>
+          <span class="line">и кофе</span>
+        </h2>
+        <div class="warranty__badge" data-reveal>
+          <div class="badge12 badge12--xl">
+            <span class="badge12__num">12</span>
+            <span class="badge12__txt">мес<br>гарантии</span>
+          </div>
+          <p>Залатали прокол&nbsp;— отвечаем за&nbsp;него год. Спустило в&nbsp;том же месте&nbsp;— переделаем бесплатно.</p>
+        </div>
+      </div>
+      <div class="warranty__photo" data-reveal>
+        <div class="warranty__photo-in"><img src="assets/img/g-lounge.jpg" alt="Комната ожидания: кофе, кресло, окно в цех" id="loungeImg"></div>
+        <p class="warranty__cap">Комната ожидания <span class="slash">/</span> окно в&nbsp;цех</p>
+      </div>
+    </div>
+
+    <ul class="facts">
+      <li data-reveal><b>8:00–22:00</b><span>без выходных</span></li>
+      <li data-reveal><b>2 линии</b><span>чужая машина не&nbsp;держит вашу</span></li>
+      <li data-reveal><b>25 минут</b><span>вся машина целиком</span></li>
+      <li data-reveal><b>Азот</b><span>бесплатно, каждому колесу</span></li>
+    </ul>
+
+    <div class="book" id="book">
+      <h3 class="display book__title" data-reveal>
+        <span class="line">Выберите</span>
+        <span class="line">своё время</span>
+      </h3>
+      <form class="book__form" id="bookForm" data-reveal novalidate>
+        <label class="field">
+          <span>Имя</span>
+          <input type="text" name="name" autocomplete="given-name" required placeholder="Как к вам обращаться">
+        </label>
+        <label class="field">
+          <span>Телефон</span>
+          <input type="tel" name="phone" autocomplete="tel" required placeholder="+7 ___ ___-__-__">
+        </label>
+        <button class="btn btn--red btn--lg" type="submit">Записаться</button>
+        <p class="book__ok" id="bookOk" role="status">Спасибо! Перезвоним и&nbsp;подтвердим время.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- Полноэкранный тёмный футер: огромный логотип реагирует на курсор, шина крутится -->
+<footer class="footer" data-theme="dark" id="contacts">
+  <div class="footer__tire" aria-hidden="true"><img src="assets/img/tire-cut.png" alt="" id="footTire"></div>
+  <div class="footer__top">
+    <div class="footer__col">
+      <p class="label">Адрес</p>
+      <p>[город], [адрес]</p>
+    </div>
+    <div class="footer__col">
+      <p class="label">Часы</p>
+      <p>8:00–22:00<br>без выходных</p>
+    </div>
+    <div class="footer__col">
+      <p class="label">Телефон</p>
+      <p><a href="tel:+70000000000">+7 [телефон]</a></p>
+    </div>
+    <div class="footer__col">
+      <p class="label">Мессенджеры</p>
+      <p class="footer__msg"><a href="#" aria-label="Telegram">Telegram</a> <span class="slash">/</span> <a href="#" aria-label="WhatsApp">WhatsApp</a> <span class="slash">/</span> <a href="#" aria-label="MAX">MAX</a></p>
+    </div>
+    <a class="btn btn--red btn--lg footer__cta" href="#book">Записаться на&nbsp;время</a>
+  </div>
+  <div class="footer__logo" id="footLogo" aria-label="ПРОТЕКТОР"></div>
+  <div class="footer__bottom">
+    <span>© ПРОТЕКТОР <span class="slash">/</span> шиномонтаж в&nbsp;[город]</span>
+    <span>Наведите на&nbsp;буквы</span>
+  </div>
+</footer>
+
+<script>
+  /* страховка: если основной скрипт не загрузился, прелоадер всё равно уходит через 4 с */
+  setTimeout(function () {
+    var p = document.getElementById('preloader');
+    if (p && !p.classList.contains('is-done')) {
+      p.classList.add('is-done');
+      document.body.classList.remove('is-loading');
+      document.querySelectorAll('[data-reveal]').forEach(function (el) { el.classList.add('is-in'); });
+    }
+  }, 4000);
+</script>
+<script src="script.js?v=3" type="module"></script>
+</body>
+</html>
