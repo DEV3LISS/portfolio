@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Араз Наджафов — сайты и автоматизация с ИИ</title>
-<meta name="description" content="Портфолио: сайты, сервисы и автоматизации с ИИ-агентами (Claude Code).">
+<title>Араз Наджафов — backend на C# и автоматизация с ИИ</title>
+<meta name="description" content="Портфолио: backend-проекты на C#/.NET, сайты и автоматизации с ИИ-агентами (Claude Code).">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@700&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@ img{display:block;max-width:100%;height:auto}
 .h{font-family:'Unbounded',sans-serif;font-weight:700;text-transform:uppercase;line-height:.92;letter-spacing:-.04em;text-wrap:balance}
 .label{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
 header{padding:88px 0 56px;border-bottom:1px solid var(--line)}
-header h1{font-size:clamp(34px,7vw,76px);margin:16px 0 22px}
+header h1{font-size:clamp(24px,7vw,76px);margin:16px 0 22px}
 header p{color:var(--muted);max-width:640px}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
 .tags span{background:var(--surface);padding:6px 12px;font-size:14px}
@@ -28,6 +28,7 @@ section p,section li{color:#cfccc4}
 section ul{margin:14px 0 0 20px;display:grid;gap:6px}
 .shot{margin-top:30px;border:1px solid var(--line)}
 .grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
+.stack{color:var(--muted);font-size:15px;margin-top:14px}
 .btn{display:inline-flex;align-items:center;min-height:50px;padding:0 22px;margin-top:26px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
 footer{padding:56px 0 72px;color:var(--muted);font-size:15px}
 @media(min-width:760px){:root{--pad:40px}.grid{grid-template-columns:1fr 1fr}}
@@ -37,15 +38,70 @@ footer{padding:56px 0 72px;color:var(--muted);font-size:15px}
 <header>
   <div class="wrap">
     <p class="label">Портфолио / 2026</p>
-    <h1 class="h">Сайты и автоматизация с ИИ-агентами</h1>
-    <p>Араз Наджафов. Делаю сайты, сервисы и автоматизации с помощью Claude Code: разбираю задачу на шаги, ставлю задачи агенту, проверяю результат в браузере и довожу до рабочего состояния. Высшее образование по ИТ (УрГЭУ, 2024).</p>
-    <div class="tags"><span>HTML / CSS / JavaScript</span><span>three.js</span><span>Claude Code</span><span>FLUX</span><span>Python</span><span>SQL</span></div>
+    <h1 class="h">Backend на C# и автоматизация с ИИ-агентами</h1>
+    <p>Араз Наджафов. Делаю backend-сервисы, сайты и автоматизации с помощью ИИ-агента Claude Code: разбираю задачу на шаги, ставлю задачи агенту, проверяю результат и довожу до рабочего состояния. Высшее образование «Информатика и вычислительная техника» (УрГЭУ, 2024).</p>
+    <div class="tags"><span>C# / .NET 10</span><span>ASP.NET Core</span><span>PostgreSQL</span><span>Docker</span><span>Claude API</span><span>Claude Code</span><span>Python</span><span>SQL</span><span>HTML / CSS / JS</span></div>
   </div>
 </header>
 
 <section>
   <div class="wrap">
-    <p class="label">01 / промо-сайт</p>
+    <p class="label">01 / backend · C#</p>
+    <h2 class="h">Torque CRM — CRM для автосервиса</h2>
+    <p>Backend для шиномонтажа и автосервиса: клиенты и машины, запись по боксам, заказ-наряды, оплаты, отчёты, напоминания, журнал аудита.</p>
+    <ul>
+      <li>две записи в один бокс на одно время невозможны — это гарантирует сама база (PostgreSQL EXCLUDE), проверено 10 одновременными запросами</li>
+      <li>повтор оплаты при сбое сети не списывает деньги дважды (Idempotency-Key + блокировка строки)</li>
+      <li>метрики и трассировка (OpenTelemetry), работа при падении базы, нагрузочный тест k6: поиск 190 → 1 944 запросов/с после индекса</li>
+      <li>158 автотестов, включая тесты на настоящей PostgreSQL и E2E на Docker-образе; 21 запись архитектурных решений</li>
+    </ul>
+    <p class="stack">C#, .NET 10, ASP.NET Core, EF Core, PostgreSQL, JWT, Docker, xUnit, Testcontainers, GitHub Actions</p>
+    <a class="btn" href="https://github.com/DEV3LISS/torque-crm">Код на GitHub</a>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="label">02 / backend · C#</p>
+    <h2 class="h">Stockflow — интернет-магазин и склад</h2>
+    <p>Backend магазина, главная задача которого — остатки под нагрузкой: товар резервируется на 15 минут, неоплаченные брони снимаются автоматически.</p>
+    <ul>
+      <li>100 покупателей одновременно на последнюю единицу → ровно один заказ; сравнил три способа блокировок на нагрузочном тесте</li>
+      <li>оплата через вебхуки: подпись HMAC, защита от повторов и событий не по порядку</li>
+      <li>Redis-кеш добавлен только после замера: каталог на 3 000 запросах/с — задержка p95 207 → 7,5 мс</li>
+      <li>100 автотестов, складской журнал и проверка остатков после каждой гонки</li>
+    </ul>
+    <p class="stack">C#, .NET 10, ASP.NET Core, EF Core, PostgreSQL, Redis, Docker, k6, xUnit, GitHub Actions</p>
+    <a class="btn" href="https://github.com/DEV3LISS/stockflow">Код на GitHub</a>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="label">03 / backend · ИИ</p>
+    <h2 class="h">Inbox Triage — ИИ-ассистент для входящих сообщений</h2>
+    <p>Клиенты пишут в Telegram или через сайт; Claude классифицирует сообщение, простые вопросы получают ответ за секунды, остальное уходит оператору с кратким пересказом и черновиком.</p>
+    <ul>
+      <li>модель только классифицирует, решение и проверки ответа — в коде: без ссылок, чужих телефонов и обещаний скидок</li>
+      <li>защита от prompt injection в несколько слоёв, строгий JSON-ответ (structured outputs), кеширование промпта, дневной бюджет на ИИ</li>
+      <li>очередь заданий в PostgreSQL, повторы при сбоях, ни одно сообщение не теряется</li>
+      <li>набор из 40 размеченных сообщений для оценки качества ИИ; 103 автотеста</li>
+    </ul>
+    <p class="stack">C#, .NET 10, Anthropic C# SDK (Claude), Telegram Bot API, PostgreSQL, Docker, xUnit, GitHub Actions</p>
+    <a class="btn" href="https://github.com/DEV3LISS/inbox-triage">Код на GitHub</a>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="label">Как сделаны проекты</p>
+    <p>Backend-проекты созданы в работе с ИИ-агентом Claude Code: я ставил задачи и проверял результат, сейчас детально разбираю код и архитектурные решения (они описаны в репозиториях — раздел docs/decisions.md).</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="label">04 / промо-сайт</p>
     <h2 class="h">«Протектор» — шиномонтаж уровня Awwwards</h2>
     <p>Тренировочный сайт по подробному ТЗ: вымышленный бренд, десктоп 1440 px, без фреймворков.</p>
     <ul>
@@ -65,7 +121,7 @@ footer{padding:56px 0 72px;color:var(--muted);font-size:15px}
 
 <section>
   <div class="wrap">
-    <p class="label">02 / автоматизация</p>
+    <p class="label">05 / автоматизация</p>
     <h2 class="h">Конвейер поиска клиентов для сайтов</h2>
     <p>От карты до сообщения владельцу: выборка бизнесов на Яндекс Картах, аудит их сайтов скриптами, демо-сайт по реальным данным карточки и отзывов, текст первого сообщения и сценарий звонка. Пример находки: у шиномонтажа с 400+ оценками кнопка «Сайт» вела на чужой спам-форум. Демо — по запросу: в нём данные реального бизнеса.</p>
   </div>
@@ -73,7 +129,7 @@ footer{padding:56px 0 72px;color:var(--muted);font-size:15px}
 
 <section>
   <div class="wrap">
-    <p class="label">03 / контент</p>
+    <p class="label">06 / контент</p>
     <h2 class="h">Конвейер YouTube-роликов</h2>
     <p>Сценарий, озвучка, картинки нейросетью, анимация, монтаж, обложка. Два канала, 9+ роликов и 15 шортсов, разбор статистики в YouTube Studio и план улучшений.</p>
   </div>
@@ -81,7 +137,7 @@ footer{padding:56px 0 72px;color:var(--muted);font-size:15px}
 
 <section>
   <div class="wrap">
-    <p class="label">04 / точность</p>
+    <p class="label">07 / точность</p>
     <h2 class="h">Сайт по спецификации до пикселя</h2>
     <p>Промо-страница по спецификации «в числах»: один цикл анимации с поправкой на частоту экрана, честный прелоадер, пин-секция, одометр, перемотка видео скроллом. Сверка с эталоном на четырёх ширинах — расхождение 2–10 px.</p>
   </div>
@@ -89,7 +145,7 @@ footer{padding:56px 0 72px;color:var(--muted);font-size:15px}
 
 <section>
   <div class="wrap">
-    <p class="label">05 / процесс</p>
+    <p class="label">08 / процесс</p>
     <h2 class="h">Правила качества для ИИ-агента</h2>
     <p>Чтобы результат не скакал от проекта к проекту, веду для агента собственную базу инструкций: типографика, интерфейс, движение, чек-лист приёмки.</p>
     <a class="btn" href="ai-agent-quality-rules.md">Пример правил</a>
